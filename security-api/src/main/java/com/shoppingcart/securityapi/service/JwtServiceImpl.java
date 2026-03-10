@@ -5,18 +5,24 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.util.Base64;
 import java.util.Date;
 
 @Service
 public class JwtServiceImpl implements JwtService{
 
-    private static final String SECRET_KEY = "0Y5kRqaRfKf9Ij5A4oKEKguOH3iWtPrbxUEXQUGLtRg=";
+    private final SecretKey secretKey;
 
-    private final SecretKey secretKey = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    public JwtServiceImpl(@Value("${jwt.secret}") String secretKeyBase64) {
+        byte[] keyBytes = Base64.getDecoder().decode(secretKeyBase64);
+        secretKey = Keys.hmacShaKeyFor(keyBytes);
+    }
 
     @Override
     public String generateToken(User user) {
