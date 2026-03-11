@@ -1,9 +1,8 @@
 package com.shoppingcart.securityapi.config;
 
-import com.shoppingcart.securityapi.component.JwtAuthenticationFilter;
-import com.shoppingcart.securityapi.service.JwtService;
-import com.shoppingcart.securityapi.service.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.shoppingcart.jwtvalidator.component.JwtAuthenticationFilter;
+import com.shoppingcart.jwtvalidator.service.JwtService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,8 +18,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService, UserServiceImpl userService) {
-        return new JwtAuthenticationFilter(jwtService, userService);
+    public JwtService jwtService(@Value("${jwt.secret}") String secret) {
+        return new JwtService(secret);
+    }
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtService jwtService) {
+        return new JwtAuthenticationFilter(jwtService);
     }
 
     @Bean

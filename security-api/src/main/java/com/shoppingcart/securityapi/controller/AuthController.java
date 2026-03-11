@@ -1,10 +1,10 @@
 package com.shoppingcart.securityapi.controller;
 
+import com.shoppingcart.jwtvalidator.service.JwtService;
 import com.shoppingcart.securityapi.models.User;
 import com.shoppingcart.securityapi.models.dto.AuthRequest;
 import com.shoppingcart.securityapi.models.dto.AuthResponse;
 import com.shoppingcart.securityapi.models.dto.CustomerDTO;
-import com.shoppingcart.securityapi.service.JwtService;
 import com.shoppingcart.securityapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +48,7 @@ public class AuthController {
                 )
         );
         User user = userService.findByUsername(request.getUsername());
-        String token = jwtService.generateToken(user);
+        String token = jwtService.generateToken(user.getUsername());
         return ResponseEntity.ok(new AuthResponse(token));
     }
 }
