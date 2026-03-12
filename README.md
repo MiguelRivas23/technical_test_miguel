@@ -5,8 +5,9 @@ It includes Customer, Security, Product, Order, and Payment APIs, all integrated
 
 Note: The project includes an example variables.env file and a Postman collection for testing all endpoints. These are provided alongside the repository.
 
-Microservices Overview
-1 - Customer API (customer-api)
+# Microservices Overview
+
+# 1 - Customer API (customer-api)
 
 Manages customer information.
 
@@ -14,7 +15,7 @@ Stores customer data in its own database.
 
 Exposes endpoints to retrieve customer details.
 
-2 - Security API (security-api)
+# 2 - Security API (security-api)
 
 Manages authentication and authorization.
 
@@ -24,7 +25,7 @@ Associates each user with a customerId.
 
 Provides endpoint /me to get current user's customer data.
 
-3 - Product API (product-api)
+# 3 - Product API (product-api)
 
 Consumes https://fakestoreapi.com/products to fetch products.
 
@@ -32,7 +33,7 @@ Exposes endpoints to list products and get product details.
 
 Acts as a source of product information for orders.
 
-4 - Order API (order-api)
+# 4 - Order API (order-api)
 
 Manages orders and order items.
 
@@ -56,7 +57,7 @@ Validates order status before cancelling or completing.
 
 Supports .env configuration to define API URLs and other environment variables.
 
-5 - Payment API (payment-api)
+# 5 - Payment API (payment-api)
 
 Receives and processes payments for orders.
 
@@ -96,7 +97,7 @@ CardInfoRequiredException -> CARD payment without card info.
 
 PaymentFailedException -> Any unexpected error during payment processing.
 
-Security and JWT
+# Security and JWT
 
 All APIs are secured using JWT (JSON Web Tokens).
 
@@ -111,6 +112,8 @@ Integration with Spring Security filters.
 Used in security-api, order-api, and payment-api via JwtAuthenticationFilter.
 
 Ensures that all requests between services and clients are authenticated.
+
+# .env Configuration
 
 All APIs share a .env-style file named:
 
@@ -131,7 +134,7 @@ API-FAKESTORE=https://fakestoreapi.com
 # Key Secret
 SECRET-KEY=0Y5kRqaRfKf9Ij5A4oKEKguOH3iWtPrbxUEXQUGLtRg=
 
-How It Works
+# How It Works
 
 Customer logs in via security-api and obtains JWT token.
 
